@@ -615,6 +615,27 @@
             $queue->listen();
         }
 
+        public function getAllTableStatus(): array
+        {
+            $data = [];
+
+            $a = $this->getAccountTable()->isTableCerated();
+
+            $data[$this->getAccountTable()->getName()] = [
+                'is_created' => (int)$a,
+                'count'      => $a ? (int)$this->getAccountTable()->getCount() : 0,
+            ];
+
+            $b = $this->getPagesTable()->isTableCerated();
+
+            $data[$this->getPagesTable()->getName()] = [
+                'is_created' => (int)$b,
+                'count'      => $b ? (int)$this->getPagesTable()->getCount() : 0,
+            ];
+
+            return $data;
+        }
+
 
     }
 
