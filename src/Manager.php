@@ -465,7 +465,12 @@
 
         public function getAllList(int $type = -1): \think\model\Collection|array|\think\Collection
         {
-            $pageTab   = $this->getPagesTable();
+            $pageTab = $this->getPagesTable();
+
+            if (!$pageTab->isTableCerated())
+            {
+                return [];
+            }
             $wherePage = [];
 
             if ($type > 0)
@@ -486,6 +491,11 @@
         {
             $pageTab = $this->getPagesTable();
 
+            if (!$pageTab->isTableCerated())
+            {
+                return [];
+            }
+
             $wherePage = [
                 [
                     $pageTab->getPathField(),
@@ -500,6 +510,11 @@
         public function updatePageToQueue(string $path, string $title, string $jsonContents, int $type = 1): void
         {
             $pageTab = $this->getPagesTable();
+
+            if (!$pageTab->isTableCerated())
+            {
+                return;
+            }
 
             $info = $this->getInfoByPath($path);
 
